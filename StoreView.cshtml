@@ -1,0 +1,76 @@
+﻿@model IEnumerable<SuperZapatos.Models.Store>
+
+@{
+    Layout = null;
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Store/GetStores',
+            contentType: 'application/json; charset=utf-8',
+            type: 'GET',
+            dataType: 'json'
+        })
+        .success(function (data) {
+            if (data.success){
+                $("#divFilas").html("Éxito");
+                $("#divFilas").show();
+            }
+            else{
+                $("#divFilas").html("Fracaso");
+                $("#divFilas").show();
+            }
+        })
+        .error(function (xhr, status) {
+        })
+    });
+</script>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>StoreView</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table id="tblStores" cellpadding="2" cellspacing="2" border="1">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Adress
+            </th>
+            <th></th>
+        </tr>
+        
+            <tr>
+                <td>
+                    store1
+                </td>
+                <td>
+                    address1
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = 1 }) |
+                    @Html.ActionLink("Details", "Details", new { id = 1 }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = 1 })
+                </td>
+            </tr>
+
+          
+    
+    </table>
+
+    <div id="divFilas" style="display:none">
+    </div>
+</body>
+</html>
+
